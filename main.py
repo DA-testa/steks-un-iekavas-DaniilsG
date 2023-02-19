@@ -1,4 +1,4 @@
-# python3
+#221RDB272 Daniils Ginglats 3.gr
 
 from collections import namedtuple
 
@@ -11,19 +11,40 @@ def are_matching(left, right):
 
 def find_mismatch(text):
     opening_brackets_stack = []
+    
     for i, next in enumerate(text):
         if next in "([{":
+            opening_brackets_stack.append(Bracket(next, i+1))
             # Process opening bracket, write your code here
             pass
 
+
         if next in ")]}":
+            if len(opening_brackets_stack)==0 or not are_matching(opening_brackets_stack[-1].char, next):
+                return i+1
+            
+            
+            else:
+                opening_brackets_stack.pop(-1)
             # Process closing bracket, write your code here
-            pass
+                pass
+
+
+    if opening_brackets_stack:
+        return opening_brackets_stack[0].position
+
 
 
 def main():
-    text = input()
+    text = input("Enter brackets: ")
     mismatch = find_mismatch(text)
+    
+    if not mismatch:
+        print('Success')
+        
+    else:
+        print(mismatch)
+        
     # Printing answer, write your code here
 
 
